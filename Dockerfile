@@ -26,6 +26,7 @@ RUN mkdir -p /var/www/html/data && \
 RUN a2enmod rewrite
 
 # .htaccess to volume
+WORKDIR /var/www/html
 RUN ln -s data/conf_htaccess .htaccess
 
 VOLUME ['/var/www/html/data']
