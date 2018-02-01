@@ -14,7 +14,9 @@ docker-build:
 shell:
 	docker run -it --rm -p 8080:8080 $(NAME):$(TAG) $(SHELL)
 
+build-shell: build shell
+
 build-test: build test
 
 test:
-	docker run -it --rm --name debug -p 8888:8080 $(NAME):$(TAG) bash
+	docker run -it --rm --name debug -p 8080:8080 $(NAME):$(TAG)
