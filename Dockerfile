@@ -5,6 +5,9 @@ RUN apt-get update && apt-get upgrade -y && apt-get autoremove -y && apt-get cle
 
 WORKDIR /var/www/html/data
 
+# Mail dependencies
+RUN pear install mail net_smtp
+
 # Install extensions
 ADD ./extensions/ /tmp/extensions
 RUN for file in /tmp/extensions/*; do \
