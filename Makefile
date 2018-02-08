@@ -12,11 +12,11 @@ docker-build:
 	docker build -t $(NAME):$(TAG) --rm .
 
 shell:
-	docker run -it --rm -p 8080:8080 $(NAME):$(TAG) $(SHELL)
+	docker run -it --rm --entrypoint=$(SHELL) -p 8080:80 $(NAME):$(TAG)
 
 build-shell: build shell
 
 build-test: build test
 
 test:
-	docker run -it --rm --name debug -p 8080:8080 $(NAME):$(TAG)
+	docker run -it --rm --name debug -p 8080:80 $(NAME):$(TAG)
