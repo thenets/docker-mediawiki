@@ -12,11 +12,11 @@ docker-build:
 	docker build -t $(NAME):$(TAG) --rm .
 
 shell:
-	docker run -it --rm --entrypoint=$(SHELL) -p 8080:80 $(NAME):$(TAG)
+	docker run -it --rm -v $(PWD)/LocalSettings.php:/home/easyphp/html/LocalSettings.php  --entrypoint=$(SHELL) -p 8080:80 $(NAME):$(TAG)
 
 build-shell: build shell
 
 build-test: build test
 
 test:
-	docker run -it --rm --name debug -p 8080:80 $(NAME):$(TAG)
+	docker run -it --rm --name debug -v $(PWD)/LocalSettings.php:/home/easyphp/html/LocalSettings.php -p 8080:80 $(NAME):$(TAG)
