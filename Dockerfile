@@ -14,7 +14,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get autoremove -y && \
     apt-get autoremove -y  && apt-get clean && rm -r /var/lib/apt/lists/*
 
 ENV APP_DIR=/var/www/html
-ENV EXTENSIONS="Duplicator Echo MobileFrontend VisualEditor"
+ENV EXTENSIONS="Duplicator Echo MobileFrontend VisualEditor NetworkAuth"
 
 WORKDIR $APP_DIR/data
 
