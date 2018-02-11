@@ -4,13 +4,6 @@ FROM mediawiki
 RUN apt-get update && apt-get upgrade -y && apt-get autoremove -y && \
     # Mail dependencies
     pear install mail net_smtp && \
-    # Parsoid support
-    apt-get install -y apt-transport-https && \
-    curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
-    apt-get install -y nodejs && \
-    echo "deb http://releases.wikimedia.org/debian jessie-mediawiki main" | tee /etc/apt/sources.list.d/parsoid.list && \
-    apt-key advanced --keyserver keys.gnupg.net --recv-keys 90E9F83F22250DD7 && \
-    apt-get update && apt-get install -y parsoid && \
     apt-get autoremove -y  && apt-get clean && rm -r /var/lib/apt/lists/*
 
 ENV APP_DIR=/var/www/html
@@ -43,10 +36,6 @@ RUN a2enmod rewrite
 # .htaccess to volume
 WORKDIR $APP_DIR
 RUN ln -s data/conf_htaccess .htaccess
-
-# Parsoid config
-ADD parsoid $APP_DIR/parsoid
-EXPOSE 8142
 
 # Entrypoint
 ADD entrypoint.sh /entrypoint.sh
