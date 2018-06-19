@@ -1,4 +1,4 @@
-FROM mediawiki:1.31
+FROM mediawiki:1.30
 
 # Install updates
 RUN apt-get update && apt-get upgrade -y && apt-get autoremove -y && \

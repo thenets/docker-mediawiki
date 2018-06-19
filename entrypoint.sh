@@ -18,15 +18,15 @@ else
     php maintenance/install.php \
         --dbtype=sqlite \
         --dbpath=$DATA_DIR \
-        --scriptpath=$DATA_DIR \
+        --scriptpath="" \
         --confpath=$APP_DIR \
         --pass=adminadmin \
-        MyWiki admin
-    mv $APP_DIR/LocalSettings.php $DATA_DIR/LocalSettings.php
+        --mwdebug --globals MyWiki admin
     ln -s $DATA_DIR/LocalSettings.php $APP_DIR/LocalSettings.php
     php maintenance/update.php --quick
 fi
 
 
 # Start the default entrypoint
+cd $APP_DIR/..
 docker-php-entrypoint apache2-foreground
