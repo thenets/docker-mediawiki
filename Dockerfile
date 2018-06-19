@@ -37,13 +37,10 @@ RUN mkdir -p $DATA_DIR && \
     # LocalSettings.php to volume
     ln -s $DATA_DIR/LocalSettings.php $APP_DIR/LocalSettings.php && \
     # .htaccess to volume
-    ln -s ../data/conf_htaccess .htaccess
+    ln -s ../data/conf_htaccess $APP_DIR/.htaccess
 
 # Enable Apache Modules
-RUN a2enmod rewrite && \
-    # .htaccess
-    rm .htaccess && \
-    ln -s ../data/conf_htaccess .htaccess
+RUN a2enmod rewrite
 
 # Add Scripts
 ADD *.sh /
