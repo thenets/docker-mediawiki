@@ -1,4 +1,4 @@
-FROM mediawiki:1.30
+FROM mediawiki:1.31
 
 LABEL   org.thenets="TheNets.org" \
         org.thenets.wiki="TheNets.org Wiki" \
