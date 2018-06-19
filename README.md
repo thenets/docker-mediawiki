@@ -1,1 +1,1 @@
-[![Docker Pulls](https://img.shields.io/docker/pulls/thenets/mediawiki.svg?style=flat-square)](https://hub.docker.com/r/thenets/mediawiki/) [![Build Status](https://travis-ci.org/thenets/docker-mediawiki.svg?branch=master)](https://travis-ci.org/thenets/docker-mediawiki)
+[![Docker Pulls](https://img.shields.io/docker/pulls/thenets/mediawiki.svg?style=flat-square)](https://hub.docker.com/r/thenets/mediawiki/) [![Build Status](https://travis-ci.org/thenets/docker-mediawiki.svg?branch=1.31)](https://travis-ci.org/thenets/docker-mediawiki)
