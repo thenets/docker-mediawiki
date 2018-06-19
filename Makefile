@@ -12,11 +12,14 @@ docker-build:
 	docker build -t $(NAME):$(TAG) --rm .
 
 shell:
-	docker run -it --rm -e "SITE_DOMAIN=example.com" -v $(PWD)/LocalSettings.php:/home/easyphp/html/LocalSettings.php  --entrypoint=$(SHELL) -p 8080:80 $(NAME):$(TAG)
+	docker run -it --rm -e "SITE_DOMAIN=example.com" --entrypoint=$(SHELL) -p 8080:80 $(NAME):$(TAG)
 
 build-shell: build shell
 
 build-test: build test
 
 test:
-	docker run -it --rm -e "SITE_DOMAIN=example.com" -v $(PWD)/LocalSettings.php:/home/easyphp/html/LocalSettings.php -p 8080:80 $(NAME):$(TAG)
+	docker run -it --rm -e "SITE_DOMAIN=example.com" -p 8080:80 $(NAME):$(TAG)
+
+unit-test:
+	docker run --rm --entrypoint=/unit-test.sh -e "SITE_DOMAIN=example.com" -p 8080:80 $(NAME):$(TAG)
