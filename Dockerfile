@@ -36,7 +36,7 @@ RUN a2enmod rewrite
 
 # .htaccess to volume
 WORKDIR $APP_DIR
-RUN ln -s data/conf_htaccess .htaccess
+RUN ln -s ../data/conf_htaccess .htaccess
 
 # Scripts
 ADD *.sh /
