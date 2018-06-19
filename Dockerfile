@@ -1,4 +1,4 @@
-FROM mediawiki
+FROM mediawiki:1.31
 
 # Install updates
 RUN apt-get update && apt-get upgrade -y && apt-get autoremove -y && \
@@ -7,9 +7,10 @@ RUN apt-get update && apt-get upgrade -y && apt-get autoremove -y && \
     apt-get autoremove -y  && apt-get clean && rm -r /var/lib/apt/lists/*
 
 ENV APP_DIR=/var/www/html
-ENV EXTENSIONS="Duplicator Echo MobileFrontend VisualEditor NetworkAuth"
+ENV DATA_DIR=/var/www/data
+ENV EXTENSIONS="Duplicator Echo MobileFrontend VisualEditor NetworkAuth TextExtracts Popups"
 
-WORKDIR $APP_DIR/data
+WORKDIR $DATA_DIR
 
 # Install extensions
 RUN cd $APP_DIR/extensions && \
@@ -21,14 +22,14 @@ RUN cd $APP_DIR/extensions && \
     done && \
     chown -R 1000.1000 $APP_DIR/extensions/
 
-# Move all persistent data to $APP_DIR/data
+# Move all persistent data to $DATA_DIR
 # and fallback compatibility with symbolic links
-RUN mkdir -p $APP_DIR/data && \
+RUN mkdir -p $DATA_DIR && \
     # Image dir
-    mv $APP_DIR/images/ $APP_DIR/data/images && \
-    ln -s $APP_DIR/data/images $APP_DIR/images && \
+    mv $APP_DIR/images/ $DATA_DIR/images && \
+    ln -s $DATA_DIR/images $APP_DIR/images && \
     # Main config file
-    ln -s $APP_DIR/data/LocalSettings.php $APP_DIR/LocalSettings.php
+    ln -s $DATA_DIR/LocalSettings.php $APP_DIR/LocalSettings.php
 
 # Enable Apache Modules
 RUN a2enmod rewrite
@@ -42,4 +43,4 @@ ADD entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 CMD [""]
 
-VOLUME ["$APP_DIR/data"]
+VOLUME ["$DATA_DIR"]

@@ -12,14 +12,14 @@
 
 # Protect against web entry
 if ( !defined( 'MEDIAWIKI' ) ) {
-	exit;
+        exit;
 }
 
 ## Uncomment this to disable output compression
 # $wgDisableOutputCompression = true;
 
-$wgSitename = "teste";
-$wgMetaNamespace = "Teste";
+$wgSitename = "MediaWiki";
+$wgMetaNamespace = "MediaWiki";
 
 ## The URL base path to the directory containing the wiki;
 ## defaults for all runtime URL paths are based off of this.
@@ -27,6 +27,7 @@ $wgMetaNamespace = "Teste";
 ## (like /w/index.php/Page_title to /wiki/Page_title) please see:
 ## https://www.mediawiki.org/wiki/Manual:Short_URL
 $wgScriptPath = "";
+$wgArticlePath = "/w/$1";
 
 ## The protocol and server name to use in fully-qualified URLs
 $wgServer = "http://localhost:8080";
@@ -43,8 +44,8 @@ $wgLogo = "$wgResourceBasePath/resources/assets/wiki.png";
 $wgEnableEmail = true;
 $wgEnableUserEmail = true; # UPO
 
-$wgEmergencyContact = "apache@localhost";
-$wgPasswordSender = "apache@localhost";
+$wgEmergencyContact = "contact@MediaWiki.org";
+$wgPasswordSender = "contact@MediaWiki.org";
 
 $wgEnotifUserTalk = false; # UPO
 $wgEnotifWatchlist = false; # UPO
@@ -53,36 +54,37 @@ $wgEmailAuthentication = true;
 ## Database settings
 $wgDBtype = "sqlite";
 $wgDBserver = "";
-$wgDBname = "wiki_database";
+$wgDBname = "mediawiki";
 $wgDBuser = "";
 $wgDBpassword = "";
 
 # SQLite-specific settings
-$wgSQLiteDataDir = "/var/www/html/data";
+$wgSQLiteDataDir = "/var/www/html/data/database";
 $wgObjectCaches[CACHE_DB] = [
-	'class' => 'SqlBagOStuff',
-	'loggroup' => 'SQLBagOStuff',
-	'server' => [
-		'type' => 'sqlite',
-		'dbname' => 'wikicache',
-		'tablePrefix' => '',
-		'dbDirectory' => $wgSQLiteDataDir,
-		'flags' => 0
-	]
+        'class' => 'SqlBagOStuff',
+        'loggroup' => 'SQLBagOStuff',
+        'server' => [
+                'type' => 'sqlite',
+                'dbname' => 'wikicache',
+                'tablePrefix' => '',
+                'dbDirectory' => $wgSQLiteDataDir,
+                'flags' => 0
+        ]
 ];
 
 ## Shared memory settings
-$wgMainCacheType = CACHE_NONE;
+$wgMainCacheType = CACHE_ACCEL;
+#$wgMainCacheType = CACHE_NONE;
 $wgMemCachedServers = [];
 
 ## To enable image uploads, make sure the 'images' directory
 ## is writable, then set this to true:
-$wgEnableUploads = false;
-#$wgUseImageMagick = true;
-#$wgImageMagickConvertCommand = "/usr/bin/convert";
+$wgEnableUploads = true;
+$wgUseImageMagick = true;
+$wgImageMagickConvertCommand = "/usr/bin/convert";
 
 # InstantCommons allows wiki to use images from https://commons.wikimedia.org
-$wgUseInstantCommons = false;
+$wgUseInstantCommons = true;
 
 # Periodically send a pingback to https://www.mediawiki.org/ with basic data
 # about this MediaWiki instance. The Wikimedia Foundation shares this data
@@ -100,24 +102,24 @@ $wgShellLocale = "C.UTF-8";
 #$wgCacheDirectory = "$IP/cache";
 
 # Site language code, should be one of the list in ./languages/data/Names.php
-$wgLanguageCode = "en";
+$wgLanguageCode = "pt-br";
 
-$wgSecretKey = "7e2f87559767cd022564d4904fa08d718d92f9eae03ca04405f40d67b5431eca";
+$wgSecretKey = "8cd52b0fff844b4cbc457a8bf8cdab9dd38b11ff0cc4930cf73a57ec77c2ad5d";
 
 # Changing this will log out all existing sessions.
 $wgAuthenticationTokenVersion = "1";
 
 # Site upgrade key. Must be set to a string (default provided) to turn on the
 # web installer while LocalSettings.php is in place
-$wgUpgradeKey = "37a46fb450f6199e";
+$wgUpgradeKey = "6e44c64fb8754e71";
 
 ## For attaching licensing metadata to pages, and displaying an
 ## appropriate copyright notice / icon. GNU Free Documentation
 ## License and Creative Commons licenses are supported so far.
 $wgRightsPage = ""; # Set to the title of a wiki page that describes your license/copyright
-$wgRightsUrl = "";
-$wgRightsText = "";
-$wgRightsIcon = "";
+$wgRightsUrl = "https://creativecommons.org/licenses/by-sa/4.0/";
+$wgRightsText = "Creative Commons - Atribuição - Compartilhamento pela mesma Licença";
+$wgRightsIcon = "$wgResourceBasePath/resources/assets/licenses/cc-by-sa.png";
 
 # Path to the GNU diff3 utility. Used for conflict resolution.
 $wgDiff3 = "/usr/bin/diff3";
@@ -128,21 +130,25 @@ $wgDefaultSkin = "vector";
 
 # Enabled skins.
 # The following skins were automatically enabled:
+#wfLoadSkin( 'CologneBlue' );
+#wfLoadSkin( 'Modern' );
+#wfLoadSkin( 'MonoBook' );
 wfLoadSkin( 'Vector' );
+
+
+# Enabled extensions. Most of the extensions are enabled by adding
+# wfLoadExtensions('ExtensionName');
+# to LocalSettings.php. Check specific extension documentation for more details.
+# The following extensions were automatically enabled:
+wfLoadExtension( 'Cite' );
+wfLoadExtension( 'CiteThisPage' );
+wfLoadExtension( 'Gadgets' );
+wfLoadExtension( 'SyntaxHighlight_GeSHi' );
+wfLoadExtension( 'WikiEditor' );
 
 # End of automatically generated settings.
 # Add more configuration options below.
 
-error_reporting( -1 );
-ini_set( 'display_errors', 1 );
-$wgShowSQLErrors = true;
-$wgDebugDumpSql  = true;
+# DEBUG
+$wgShowExceptionDetails = true;
 $wgShowDBErrorBacktrace = true;
-
-# Custom plugins
-# =========================
-// wfLoadExtension( 'Popups' );
-// wfLoadExtension( 'Echo' );
-// wfLoadExtension( 'MobileFrontend' );
-// wfLoadExtension( 'VisualEditor' );
-// wfLoadExtension( 'TextExtracts' );
