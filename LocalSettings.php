@@ -53,12 +53,12 @@ $wgEmailAuthentication = true;
 ## Database settings
 $wgDBtype = "sqlite";
 $wgDBserver = "";
-$wgDBname = "my_wiki";
+$wgDBname = "wiki_database";
 $wgDBuser = "";
 $wgDBpassword = "";
 
 # SQLite-specific settings
-$wgSQLiteDataDir = "/home/easyphp/data";
+$wgSQLiteDataDir = "/var/www/html/data";
 $wgObjectCaches[CACHE_DB] = [
 	'class' => 'SqlBagOStuff',
 	'loggroup' => 'SQLBagOStuff',
@@ -128,9 +128,6 @@ $wgDefaultSkin = "vector";
 
 # Enabled skins.
 # The following skins were automatically enabled:
-wfLoadSkin( 'CologneBlue' );
-wfLoadSkin( 'Modern' );
-wfLoadSkin( 'MonoBook' );
 wfLoadSkin( 'Vector' );
 
 # End of automatically generated settings.
@@ -141,3 +138,11 @@ ini_set( 'display_errors', 1 );
 $wgShowSQLErrors = true;
 $wgDebugDumpSql  = true;
 $wgShowDBErrorBacktrace = true;
+
+# Custom plugins
+# =========================
+// wfLoadExtension( 'Popups' );
+// wfLoadExtension( 'Echo' );
+// wfLoadExtension( 'MobileFrontend' );
+// wfLoadExtension( 'VisualEditor' );
+// wfLoadExtension( 'TextExtracts' );
