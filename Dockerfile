@@ -14,7 +14,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get autoremove -y && \
 
 ENV APP_DIR=/var/www/html \
     DATA_DIR=/var/www/data \
-    EXTENSIONS="Duplicator Echo MobileFrontend VisualEditor NetworkAuth TextExtracts Popups BetaFeatures Mailgun"
+    EXTENSIONS="Duplicator Echo MobileFrontend VisualEditor NetworkAuth TextExtracts Popups BetaFeatures"
 
 WORKDIR $DATA_DIR
 
