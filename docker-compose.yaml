@@ -1,24 +1,20 @@
-version: "2"
+version: "3"
 services:
   thenets-wiki:
-    labels: 
-      thenets.wiki.description: "TheNets.org Wiki"
     image: thenets/mediawiki:latest
     ports:
       - 5555:80
     volumes: 
-      - /volumes/mediawiki_data:/var/www/data:rw
+      - /opt/volumes/mediawiki_data:/var/www/data:rw
     restart: unless-stopped
 
   thenets-wiki-parsoid:
-    labels:
-      thenets.wikiparsoid.description: "wiki-parsoid"
     image: thenets/parsoid:beta
     ports:
       - 5556:8000
     restart: unless-stopped
     environment:
-      - PARSOID_DOMAIN_localhost=http://127.0.0.1:5555/api.php
-      - PARSOID_NUM_WORKERS=0
-      - PARSOID_LOGGING_LEVEL=debug
-      - PARSOID_DOMAIN_thenetswikiparsoid=http://127.0.0.1:5555/api.php
+      PARSOID_DOMAIN_localhost: http://127.0.0.1:5555/api.php
+      PARSOID_NUM_WORKERS: 0
+      PARSOID_LOGGING_LEVEL: debug
+      PARSOID_DOMAIN_thenetswikiparsoid: http://127.0.0.1:5555/api.php
