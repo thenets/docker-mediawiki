@@ -2,7 +2,7 @@ FROM mediawiki:1.33
 
 LABEL   org.thenets="TheNets.org" \
         org.thenets.wiki="TheNets.org Wiki" \
-        version="0.1" \
+        version="1.33" \
         description="MediaWiki Docker version created by TheNets.org." \
         maintainer="luiz@thenets.org"
 
