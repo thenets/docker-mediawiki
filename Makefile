@@ -2,13 +2,7 @@ NAME = thenets/mediawiki
 TAG = latest
 SHELL = /bin/bash
 
-build: pre-build docker-build post-build
-
-pre-build:
-
-post-build:
-
-docker-build:
+build:
 	docker build -t $(NAME):$(TAG) --rm .
 
 shell:
@@ -23,4 +17,3 @@ test:
 
 unit-test:
 	docker run --rm --entrypoint=/unit-test.sh -e "SITE_DOMAIN=example.com" -p 8080:80 $(NAME):$(TAG)
-	

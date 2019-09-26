@@ -28,6 +28,10 @@ RUN cd $APP_DIR/extensions && \
     done && \
     chown -R 1000.1000 $APP_DIR/extensions/
 
+# Add .htaccess
+# http://www.mediawiki.org/wiki/Manual:Short_URL/Apache
+ADD ./.htaccess ${APP_DIR}
+
 # Enable Apache Modules
 RUN a2enmod rewrite
 
