@@ -1,4 +1,4 @@
-FROM mediawiki:1.32
+FROM mediawiki:1.33
 
 LABEL   org.thenets="TheNets.org" \
         org.thenets.wiki="TheNets.org Wiki" \
@@ -27,17 +27,6 @@ RUN cd $APP_DIR/extensions && \
         git submodule update --init ; \
     done && \
     chown -R 1000.1000 $APP_DIR/extensions/
-
-# Move all persistent data to $DATA_DIR
-# and fallback compatibility with symbolic links
-RUN mkdir -p $DATA_DIR && \
-    # Image dir
-    mv $APP_DIR/images/ $DATA_DIR/images && \
-    ln -s $DATA_DIR/images $APP_DIR/images && \
-    # LocalSettings.php to volume
-    ln -s $DATA_DIR/LocalSettings.php $APP_DIR/LocalSettings.php && \
-    # .htaccess to volume
-    ln -s ../data/conf_htaccess $APP_DIR/.htaccess
 
 # Enable Apache Modules
 RUN a2enmod rewrite
